@@ -1,0 +1,54 @@
+﻿using System;
+using System.Diagnostics;
+using System.Windows.Forms;
+
+namespace Cyotek.SkylineGenerator
+{
+  internal sealed partial class AboutDialog : Form
+  {
+    #region Public Constructors
+
+    public AboutDialog()
+    {
+      this.InitializeComponent();
+    }
+
+    #endregion
+
+    #region Overridden Methods
+
+    protected override void OnLoad(EventArgs e)
+    {
+      FileVersionInfo versionInfo;
+
+      versionInfo = FileVersionInfo.GetVersionInfo(typeof(MainForm).Assembly.Location);
+      nameLabel.Text = versionInfo.ProductName;
+      copyrightLabel.Text = versionInfo.LegalCopyright;
+
+      base.OnLoad(e);
+    }
+
+    #endregion
+
+    #region Event Handlers
+
+    private void closeButton_Click(object sender, EventArgs e)
+    {
+      this.Close();
+    }
+
+    private void webLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    {
+      try
+      {
+        Process.Start("http://www.cyotek.com");
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(ex.GetBaseException().Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+      }
+    }
+
+    #endregion
+  }
+}
