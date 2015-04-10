@@ -1,21 +1,14 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace Cyotek.SkylineGenerator
 {
   public partial class MainForm : Form
   {
-    #region Fields
-
-    private IDictionary<string, SimpleSkylineGenerator> _presets;
-
-    #endregion
-
     #region Constructors
 
     public MainForm()
@@ -33,45 +26,55 @@ namespace Cyotek.SkylineGenerator
     /// <param name="e">A <see cref="T:System.EventArgs"/> that contains the event data. </param>
     protected override void OnShown(EventArgs e)
     {
-      Type baseType;
-
       base.OnShown(e);
 
-      _presets = new ConcurrentDictionary<string, SimpleSkylineGenerator>();
-      baseType = typeof(SimpleSkylineGenerator);
+      this.LoadPresets();
 
-      // ReSharper disable once LoopCanBePartlyConvertedToQuery
-      foreach (Type type in this.GetType().Assembly.GetTypes())
-      {
-        if (!type.IsAbstract && baseType.IsAssignableFrom(type) && type != baseType)
-        {
-          this.AddPreset(type);
-        }
-      }
+      _simpleSkylineGenerator = new SimpleSkylineGenerator();
+      _simpleSkylineGenerator.Generated += this.SimpleSkylineGeneratorGeneratedHandler;
+      _simpleSkylineGenerator.SettingsChanged += this.SimpleSkylineGeneratorSettingsChangedHandler;
 
-      simpleSkylineGenerator.Generate();
+      propertyGrid.SelectedObject = _simpleSkylineGenerator.Settings;
+
+      _simpleSkylineGenerator.Generate();
 
       previewImageBox.ZoomToFit();
     }
 
-    private void AddPreset(Type type)
+    /// <summary>
+    /// Raises the <see cref="E:System.Windows.Forms.Form.FormClosing"/> event.
+    /// </summary>
+    /// <param name="e">A <see cref="T:System.Windows.Forms.FormClosingEventArgs"/> that contains the event data. </param>
+    protected override void OnFormClosing(FormClosingEventArgs e)
     {
-      string name;
+      base.OnFormClosing(e);
 
-      name = type.Name;
-      if (name.EndsWith("Preset"))
+      if (!e.Cancel)
       {
-        name = name.Substring(0, name.Length - 6);
+        _simpleSkylineGenerator.Generated -= this.SimpleSkylineGeneratorGeneratedHandler;
+        _simpleSkylineGenerator.SettingsChanged -= this.SimpleSkylineGeneratorSettingsChangedHandler;
       }
+    }
 
-      if (name == "Default")
+    private void SimpleSkylineGeneratorSettingsChangedHandler(object sender, EventArgs e)
+    {
+      propertyGrid.SelectedObject = _simpleSkylineGenerator.Settings;
+    }
+
+    private string PresetFolder
+    {
+      get { return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "presets"); }
+    }
+
+    private void LoadPresets()
+    {
+      presetToolStripComboBox.Items.Clear();
+
+      foreach (string fileName in Directory.GetFiles(this.PresetFolder, "*.json"))
       {
-        name = "(Default)";
+        // ReSharper disable once AssignNullToNotNullAttribute
+        presetToolStripComboBox.Items.Add(Path.GetFileNameWithoutExtension(fileName));
       }
-
-      _presets.Add(name, (SimpleSkylineGenerator)Activator.CreateInstance(type));
-
-      presetToolStripComboBox.Items.Add(name);
     }
 
     private void actualSizeToolStripButton_Click(object sender, EventArgs e)
@@ -146,7 +149,7 @@ namespace Cyotek.SkylineGenerator
     {
       try
       {
-        this.CopyImageToClipboard(simpleSkylineGenerator.Image);
+        this.CopyImageToClipboard(_simpleSkylineGenerator.Image);
       }
       catch (Exception ex)
       {
@@ -171,12 +174,14 @@ namespace Cyotek.SkylineGenerator
       }
     }
 
+    private SimpleSkylineGenerator _simpleSkylineGenerator;
+
     private void generateToolStripButton_Click(object sender, EventArgs e)
     {
-      simpleSkylineGenerator.Generate();
+      _simpleSkylineGenerator.Generate();
     }
 
-    private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+    private void exportImageToolStripMenuItem_Click(object sender, EventArgs e)
     {
       using (SaveFileDialog dialog = new SaveFileDialog
                                      {
@@ -187,14 +192,15 @@ namespace Cyotek.SkylineGenerator
       {
         if (dialog.ShowDialog(this) == DialogResult.OK)
         {
-          this.ExportImage(simpleSkylineGenerator.Image, dialog.FileName);
+          this.ExportImage(_simpleSkylineGenerator.Image, dialog.FileName);
         }
       }
     }
 
-    private void simpleSkylineGenerator_Generated(object sender, EventArgs e)
+    private void SimpleSkylineGeneratorGeneratedHandler(object sender, EventArgs e)
     {
-      previewImageBox.Image = simpleSkylineGenerator.Image;
+      previewImageBox.Image = _simpleSkylineGenerator.Image;
+      seedToolStripStatusLabel.Text = string.Concat("Seed: ", _simpleSkylineGenerator.ActualSeed.ToString());
     }
 
     private void sizeToFitToolStripButton_Click(object sender, EventArgs e)
@@ -206,11 +212,27 @@ namespace Cyotek.SkylineGenerator
 
     private void presetToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
     {
-      simpleSkylineGenerator.CopyFrom(_presets[presetToolStripComboBox.Text]);
+      this.LoadPreset(Path.Combine(this.PresetFolder, Path.ChangeExtension(presetToolStripComboBox.Text, ".json")));
+    }
 
-      previewImageBox.ZoomToFit();
+    private void LoadPreset(string fileName)
+    {
+      try
+      {
+        SimpleSkylineGeneratorSettings newSettings;
 
-      propertyGrid.Refresh();
+        newSettings = JsonConvert.DeserializeObject<SimpleSkylineGeneratorSettings>(File.ReadAllText(fileName), new SimpleSkylineGeneratorSettingsConverter());
+
+        _simpleSkylineGenerator.Settings = newSettings;
+
+        previewImageBox.ZoomToFit();
+
+        propertyGrid.Refresh();
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(string.Format("Failed to load preset. {0}", ex.GetBaseException().Message), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+      }
     }
 
     private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -218,6 +240,47 @@ namespace Cyotek.SkylineGenerator
       using (AboutDialog dialog = new AboutDialog())
       {
         dialog.ShowDialog(this);
+      }
+    }
+
+    private void savePresetToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      using (SaveFileDialog dialog = new SaveFileDialog
+                                     {
+                                       Title = "Save Preset As",
+                                       Filter = "Preset Files (*.json)|*.json|All Files (*.*)|*.*",
+                                       DefaultExt = "json",
+                                       InitialDirectory = this.PresetFolder
+                                     })
+      {
+        if (dialog.ShowDialog(this) == DialogResult.OK)
+        {
+          this.SavePreset(_simpleSkylineGenerator.Settings, dialog.FileName);
+        }
+      }
+    }
+
+    private void SavePreset(SimpleSkylineGeneratorSettings settings, string fileName)
+    {
+      try
+      {
+        using (StreamWriter stream = File.CreateText(fileName))
+        {
+          JsonSerializer serializer;
+
+          serializer = new JsonSerializer
+                       {
+                         Formatting = Formatting.Indented
+                       };
+
+          serializer.Serialize(stream, settings);
+
+          this.LoadPresets();
+        }
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(string.Format("Failed to save preset. {0}", ex.GetBaseException().Message), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
       }
     }
   }

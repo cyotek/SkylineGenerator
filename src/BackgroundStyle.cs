@@ -3,10 +3,12 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using Cyotek.SkylineGenerator.Annotations;
+using Newtonsoft.Json;
 
 namespace Cyotek.SkylineGenerator
 {
   [TypeConverter(typeof(ExpandableObjectConverter))]
+  [JsonObject]
   internal class BackgroundStyle : INotifyPropertyChanged, ICloneable
   {
     #region Fields

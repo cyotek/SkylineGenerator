@@ -19,8 +19,6 @@ It's not really a true 8bit style as the gradient background isn't dithered but 
 
 I also wanted to add different building shapes but again... quick program.
 
-In Ansdor's example, I think he uses two tones as a sort of 3D effect, whereas I'm just drawing flat 2D blocks in the different colors. I also was thinking about layering and some sort of normal distribution but this is way overboard for a program I'm likely to use exactly once.
-
 Samples
 -------
 

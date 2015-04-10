@@ -1,0 +1,33 @@
+{
+  "Background": {
+    "EndColor": "SeaShell",
+    "StartColor": "Transparent"
+  },
+  "Buildings": [
+    {
+      "Color": "WhiteSmoke",
+      "LightColor": "Gainsboro",
+      "GrowWindows": "true",
+      "WindowSize": "4, 4"
+    },
+    {
+      "Color": "Gainsboro",
+      "LightColor": "WhiteSmoke",
+      "WindowSize": "4, 4",
+      "GrowWindows": "true"
+    }
+  ],
+  "Density": 100,
+  "Horizon": 360,
+  "Image": null,
+  "LightingDensity": 0.5,
+  "MaximumBuildingSize": "50, 200",
+  "MinimumBuildingSize": "10, 20",
+  "Seed": 0,
+  "Size": "800, 200",
+  "Stars": {
+    "Color": "White",
+    "Density": 0,
+    "Size": "4, 4"
+  }
+}

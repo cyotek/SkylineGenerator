@@ -22,11 +22,10 @@ namespace Cyotek.SkylineGenerator.Annotations
   ///   var s = p.ToString(); // Warning: Possible 'System.NullReferenceException'
   /// }
   /// </code></example>
-  [AttributeUsage(
-    AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
-    AttributeTargets.Delegate | AttributeTargets.Field | AttributeTargets.Event)]
+  [AttributeUsage(AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Delegate | AttributeTargets.Field | AttributeTargets.Event)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class CanBeNullAttribute : Attribute { }
+  public sealed class CanBeNullAttribute : Attribute
+  { }
 
   /// <summary>
   /// Indicates that the value of the marked element could never be <c>null</c>
@@ -36,29 +35,26 @@ namespace Cyotek.SkylineGenerator.Annotations
   ///   return null; // Warning: Possible 'null' assignment
   /// }
   /// </code></example>
-  [AttributeUsage(
-    AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
-    AttributeTargets.Delegate | AttributeTargets.Field | AttributeTargets.Event)]
+  [AttributeUsage(AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Delegate | AttributeTargets.Field | AttributeTargets.Event)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class NotNullAttribute : Attribute { }
+  public sealed class NotNullAttribute : Attribute
+  { }
 
   /// <summary>
   /// Indicates that collection or enumerable value does not contain null elements
   /// </summary>
-  [AttributeUsage(
-    AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
-    AttributeTargets.Delegate | AttributeTargets.Field)]
+  [AttributeUsage(AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Delegate | AttributeTargets.Field)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class ItemNotNullAttribute : Attribute { }
+  public sealed class ItemNotNullAttribute : Attribute
+  { }
 
   /// <summary>
   /// Indicates that collection or enumerable value can contain null elements
   /// </summary>
-  [AttributeUsage(
-    AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
-    AttributeTargets.Delegate | AttributeTargets.Field)]
+  [AttributeUsage(AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Delegate | AttributeTargets.Field)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class ItemCanBeNullAttribute : Attribute { }
+  public sealed class ItemCanBeNullAttribute : Attribute
+  { }
 
   /// <summary>
   /// Indicates that the marked method builds string by format pattern and (optional) arguments.
@@ -72,20 +68,27 @@ namespace Cyotek.SkylineGenerator.Annotations
   ///   ShowError("Failed: {0}"); // Warning: Non-existing argument in format string
   /// }
   /// </code></example>
-  [AttributeUsage(
-    AttributeTargets.Constructor | AttributeTargets.Method | AttributeTargets.Delegate)]
+  [AttributeUsage(AttributeTargets.Constructor | AttributeTargets.Method | AttributeTargets.Delegate)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class StringFormatMethodAttribute : Attribute
   {
+    #region Constructors
+
     /// <param name="formatParameterName">
     /// Specifies which parameter of an annotated method should be treated as format-string
     /// </param>
     public StringFormatMethodAttribute(string formatParameterName)
     {
-      FormatParameterName = formatParameterName;
+      this.FormatParameterName = formatParameterName;
     }
 
+    #endregion
+
+    #region Properties
+
     public string FormatParameterName { get; private set; }
+
+    #endregion
   }
 
   /// <summary>
@@ -96,12 +99,21 @@ namespace Cyotek.SkylineGenerator.Annotations
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class ValueProviderAttribute : Attribute
   {
+    #region Constructors
+
     public ValueProviderAttribute(string name)
     {
-      Name = name;
+      this.Name = name;
     }
 
-    [NotNull] public string Name { get; private set; }
+    #endregion
+
+    #region Properties
+
+    [NotNull]
+    public string Name { get; private set; }
+
+    #endregion
   }
 
   /// <summary>
@@ -117,7 +129,8 @@ namespace Cyotek.SkylineGenerator.Annotations
   /// </code></example>
   [AttributeUsage(AttributeTargets.Parameter)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class InvokerParameterNameAttribute : Attribute { }
+  public sealed class InvokerParameterNameAttribute : Attribute
+  { }
 
   /// <summary>
   /// Indicates that the method is contained in a type that implements
@@ -159,13 +172,23 @@ namespace Cyotek.SkylineGenerator.Annotations
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class NotifyPropertyChangedInvocatorAttribute : Attribute
   {
-    public NotifyPropertyChangedInvocatorAttribute() { }
+    #region Constructors
+
+    public NotifyPropertyChangedInvocatorAttribute()
+    { }
+
     public NotifyPropertyChangedInvocatorAttribute(string parameterName)
     {
-      ParameterName = parameterName;
+      this.ParameterName = parameterName;
     }
 
+    #endregion
+
+    #region Properties
+
     public string ParameterName { get; private set; }
+
+    #endregion
   }
 
   /// <summary>
@@ -215,17 +238,27 @@ namespace Cyotek.SkylineGenerator.Annotations
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class ContractAnnotationAttribute : Attribute
   {
+    #region Constructors
+
     public ContractAnnotationAttribute([NotNull] string contract)
-      : this(contract, false) { }
+      : this(contract, false)
+    { }
 
     public ContractAnnotationAttribute([NotNull] string contract, bool forceFullStates)
     {
-      Contract = contract;
-      ForceFullStates = forceFullStates;
+      this.Contract = contract;
+      this.ForceFullStates = forceFullStates;
     }
 
+    #endregion
+
+    #region Properties
+
     public string Contract { get; private set; }
+
     public bool ForceFullStates { get; private set; }
+
+    #endregion
   }
 
   /// <summary>
@@ -241,13 +274,24 @@ namespace Cyotek.SkylineGenerator.Annotations
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class LocalizationRequiredAttribute : Attribute
   {
-    public LocalizationRequiredAttribute() : this(true) { }
+    #region Constructors
+
+    public LocalizationRequiredAttribute()
+      : this(true)
+    { }
+
     public LocalizationRequiredAttribute(bool required)
     {
-      Required = required;
+      this.Required = required;
     }
 
+    #endregion
+
+    #region Properties
+
     public bool Required { get; private set; }
+
+    #endregion
   }
 
   /// <summary>
@@ -269,10 +313,10 @@ namespace Cyotek.SkylineGenerator.Annotations
   ///   }
   /// }
   /// </code></example>
-  [AttributeUsage(
-    AttributeTargets.Interface | AttributeTargets.Class | AttributeTargets.Struct)]
+  [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class | AttributeTargets.Struct)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class CannotApplyEqualityOperatorAttribute : Attribute { }
+  public sealed class CannotApplyEqualityOperatorAttribute : Attribute
+  { }
 
   /// <summary>
   /// When applied to a target attribute, specifies a requirement for any type marked
@@ -289,12 +333,21 @@ namespace Cyotek.SkylineGenerator.Annotations
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class BaseTypeRequiredAttribute : Attribute
   {
+    #region Constructors
+
     public BaseTypeRequiredAttribute([NotNull] Type baseType)
     {
-      BaseType = baseType;
+      this.BaseType = baseType;
     }
 
-    [NotNull] public Type BaseType { get; private set; }
+    #endregion
+
+    #region Properties
+
+    [NotNull]
+    public Type BaseType { get; private set; }
+
+    #endregion
   }
 
   /// <summary>
@@ -306,24 +359,35 @@ namespace Cyotek.SkylineGenerator.Annotations
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class UsedImplicitlyAttribute : Attribute
   {
+    #region Constructors
+
     public UsedImplicitlyAttribute()
-      : this(ImplicitUseKindFlags.Default, ImplicitUseTargetFlags.Default) { }
+      : this(ImplicitUseKindFlags.Default, ImplicitUseTargetFlags.Default)
+    { }
 
     public UsedImplicitlyAttribute(ImplicitUseKindFlags useKindFlags)
-      : this(useKindFlags, ImplicitUseTargetFlags.Default) { }
+      : this(useKindFlags, ImplicitUseTargetFlags.Default)
+    { }
 
     public UsedImplicitlyAttribute(ImplicitUseTargetFlags targetFlags)
-      : this(ImplicitUseKindFlags.Default, targetFlags) { }
+      : this(ImplicitUseKindFlags.Default, targetFlags)
+    { }
 
-    public UsedImplicitlyAttribute(
-      ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
+    public UsedImplicitlyAttribute(ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
     {
-      UseKindFlags = useKindFlags;
-      TargetFlags = targetFlags;
+      this.UseKindFlags = useKindFlags;
+      this.TargetFlags = targetFlags;
     }
 
-    public ImplicitUseKindFlags UseKindFlags { get; private set; }
+    #endregion
+
+    #region Properties
+
     public ImplicitUseTargetFlags TargetFlags { get; private set; }
+
+    public ImplicitUseKindFlags UseKindFlags { get; private set; }
+
+    #endregion
   }
 
   /// <summary>
@@ -335,39 +399,56 @@ namespace Cyotek.SkylineGenerator.Annotations
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class MeansImplicitUseAttribute : Attribute
   {
-    public MeansImplicitUseAttribute() 
-      : this(ImplicitUseKindFlags.Default, ImplicitUseTargetFlags.Default) { }
+    #region Constructors
+
+    public MeansImplicitUseAttribute()
+      : this(ImplicitUseKindFlags.Default, ImplicitUseTargetFlags.Default)
+    { }
 
     public MeansImplicitUseAttribute(ImplicitUseKindFlags useKindFlags)
-      : this(useKindFlags, ImplicitUseTargetFlags.Default) { }
+      : this(useKindFlags, ImplicitUseTargetFlags.Default)
+    { }
 
     public MeansImplicitUseAttribute(ImplicitUseTargetFlags targetFlags)
-      : this(ImplicitUseKindFlags.Default, targetFlags) { }
+      : this(ImplicitUseKindFlags.Default, targetFlags)
+    { }
 
-    public MeansImplicitUseAttribute(
-      ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
+    public MeansImplicitUseAttribute(ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
     {
-      UseKindFlags = useKindFlags;
-      TargetFlags = targetFlags;
+      this.UseKindFlags = useKindFlags;
+      this.TargetFlags = targetFlags;
     }
 
-    [UsedImplicitly] public ImplicitUseKindFlags UseKindFlags { get; private set; }
-    [UsedImplicitly] public ImplicitUseTargetFlags TargetFlags { get; private set; }
+    #endregion
+
+    #region Properties
+
+    [UsedImplicitly]
+    public ImplicitUseTargetFlags TargetFlags { get; private set; }
+
+    [UsedImplicitly]
+    public ImplicitUseKindFlags UseKindFlags { get; private set; }
+
+    #endregion
   }
 
   [Flags]
   public enum ImplicitUseKindFlags
   {
     Default = Access | Assign | InstantiatedWithFixedConstructorSignature,
+
     /// <summary>Only entity marked with attribute considered used</summary>
     Access = 1,
+
     /// <summary>Indicates implicit assignment to a member</summary>
     Assign = 2,
+
     /// <summary>
     /// Indicates implicit instantiation of a type with fixed constructor signature.
     /// That means any unused constructor parameters won't be reported as such.
     /// </summary>
     InstantiatedWithFixedConstructorSignature = 4,
+
     /// <summary>Indicates implicit instantiation of a type</summary>
     InstantiatedNoFixedConstructorSignature = 8,
   }
@@ -380,9 +461,12 @@ namespace Cyotek.SkylineGenerator.Annotations
   public enum ImplicitUseTargetFlags
   {
     Default = Itself,
+
     Itself = 1,
+
     /// <summary>Members of entity marked with attribute are considered used</summary>
     Members = 2,
+
     /// <summary>Entity marked with attribute and all its members considered used</summary>
     WithMembers = Itself | Members
   }
@@ -395,13 +479,23 @@ namespace Cyotek.SkylineGenerator.Annotations
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class PublicAPIAttribute : Attribute
   {
-    public PublicAPIAttribute() { }
+    #region Constructors
+
+    public PublicAPIAttribute()
+    { }
+
     public PublicAPIAttribute([NotNull] string comment)
     {
-      Comment = comment;
+      this.Comment = comment;
     }
 
+    #endregion
+
+    #region Properties
+
     public string Comment { get; private set; }
+
+    #endregion
   }
 
   /// <summary>
@@ -413,7 +507,8 @@ namespace Cyotek.SkylineGenerator.Annotations
   /// </summary>
   [AttributeUsage(AttributeTargets.Parameter)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class InstantHandleAttribute : Attribute { }
+  public sealed class InstantHandleAttribute : Attribute
+  { }
 
   /// <summary>
   /// Indicates that a method does not make any observable state changes.
@@ -428,7 +523,8 @@ namespace Cyotek.SkylineGenerator.Annotations
   /// </code></example>
   [AttributeUsage(AttributeTargets.Method)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class PureAttribute : Attribute { }
+  public sealed class PureAttribute : Attribute
+  { }
 
   /// <summary>
   /// Indicates that a parameter is a path to a file or a folder within a web project.
@@ -438,85 +534,143 @@ namespace Cyotek.SkylineGenerator.Annotations
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public class PathReferenceAttribute : Attribute
   {
-    public PathReferenceAttribute() { }
+    #region Constructors
+
+    public PathReferenceAttribute()
+    { }
+
     public PathReferenceAttribute([PathReference] string basePath)
     {
-      BasePath = basePath;
+      this.BasePath = basePath;
     }
 
+    #endregion
+
+    #region Properties
+
     public string BasePath { get; private set; }
+
+    #endregion
   }
 
   [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class AspMvcAreaMasterLocationFormatAttribute : Attribute
   {
+    #region Constructors
+
     public AspMvcAreaMasterLocationFormatAttribute(string format)
     {
-      Format = format;
+      this.Format = format;
     }
 
+    #endregion
+
+    #region Properties
+
     public string Format { get; private set; }
+
+    #endregion
   }
 
   [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class AspMvcAreaPartialViewLocationFormatAttribute : Attribute
   {
+    #region Constructors
+
     public AspMvcAreaPartialViewLocationFormatAttribute(string format)
     {
-      Format = format;
+      this.Format = format;
     }
 
+    #endregion
+
+    #region Properties
+
     public string Format { get; private set; }
+
+    #endregion
   }
 
   [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class AspMvcAreaViewLocationFormatAttribute : Attribute
   {
+    #region Constructors
+
     public AspMvcAreaViewLocationFormatAttribute(string format)
     {
-      Format = format;
+      this.Format = format;
     }
 
+    #endregion
+
+    #region Properties
+
     public string Format { get; private set; }
+
+    #endregion
   }
 
   [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class AspMvcMasterLocationFormatAttribute : Attribute
   {
+    #region Constructors
+
     public AspMvcMasterLocationFormatAttribute(string format)
     {
-      Format = format;
+      this.Format = format;
     }
 
+    #endregion
+
+    #region Properties
+
     public string Format { get; private set; }
+
+    #endregion
   }
 
   [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class AspMvcPartialViewLocationFormatAttribute : Attribute
   {
+    #region Constructors
+
     public AspMvcPartialViewLocationFormatAttribute(string format)
     {
-      Format = format;
+      this.Format = format;
     }
 
+    #endregion
+
+    #region Properties
+
     public string Format { get; private set; }
+
+    #endregion
   }
 
   [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class AspMvcViewLocationFormatAttribute : Attribute
   {
+    #region Constructors
+
     public AspMvcViewLocationFormatAttribute(string format)
     {
-      Format = format;
+      this.Format = format;
     }
 
+    #endregion
+
+    #region Properties
+
     public string Format { get; private set; }
+
+    #endregion
   }
 
   /// <summary>
@@ -529,13 +683,23 @@ namespace Cyotek.SkylineGenerator.Annotations
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class AspMvcActionAttribute : Attribute
   {
-    public AspMvcActionAttribute() { }
+    #region Constructors
+
+    public AspMvcActionAttribute()
+    { }
+
     public AspMvcActionAttribute(string anonymousProperty)
     {
-      AnonymousProperty = anonymousProperty;
+      this.AnonymousProperty = anonymousProperty;
     }
 
+    #endregion
+
+    #region Properties
+
     public string AnonymousProperty { get; private set; }
+
+    #endregion
   }
 
   /// <summary>
@@ -547,13 +711,23 @@ namespace Cyotek.SkylineGenerator.Annotations
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class AspMvcAreaAttribute : PathReferenceAttribute
   {
-    public AspMvcAreaAttribute() { }
+    #region Constructors
+
+    public AspMvcAreaAttribute()
+    { }
+
     public AspMvcAreaAttribute(string anonymousProperty)
     {
-      AnonymousProperty = anonymousProperty;
+      this.AnonymousProperty = anonymousProperty;
     }
 
+    #endregion
+
+    #region Properties
+
     public string AnonymousProperty { get; private set; }
+
+    #endregion
   }
 
   /// <summary>
@@ -566,13 +740,23 @@ namespace Cyotek.SkylineGenerator.Annotations
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class AspMvcControllerAttribute : Attribute
   {
-    public AspMvcControllerAttribute() { }
+    #region Constructors
+
+    public AspMvcControllerAttribute()
+    { }
+
     public AspMvcControllerAttribute(string anonymousProperty)
     {
-      AnonymousProperty = anonymousProperty;
+      this.AnonymousProperty = anonymousProperty;
     }
 
+    #endregion
+
+    #region Properties
+
     public string AnonymousProperty { get; private set; }
+
+    #endregion
   }
 
   /// <summary>
@@ -581,7 +765,8 @@ namespace Cyotek.SkylineGenerator.Annotations
   /// </summary>
   [AttributeUsage(AttributeTargets.Parameter)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class AspMvcMasterAttribute : Attribute { }
+  public sealed class AspMvcMasterAttribute : Attribute
+  { }
 
   /// <summary>
   /// ASP.NET MVC attribute. Indicates that a parameter is an MVC model type. Use this attribute
@@ -589,7 +774,8 @@ namespace Cyotek.SkylineGenerator.Annotations
   /// </summary>
   [AttributeUsage(AttributeTargets.Parameter)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class AspMvcModelTypeAttribute : Attribute { }
+  public sealed class AspMvcModelTypeAttribute : Attribute
+  { }
 
   /// <summary>
   /// ASP.NET MVC attribute. If applied to a parameter, indicates that the parameter is an MVC
@@ -599,14 +785,16 @@ namespace Cyotek.SkylineGenerator.Annotations
   /// </summary>
   [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class AspMvcPartialViewAttribute : PathReferenceAttribute { }
+  public sealed class AspMvcPartialViewAttribute : PathReferenceAttribute
+  { }
 
   /// <summary>
   /// ASP.NET MVC attribute. Allows disabling inspections for MVC views within a class or a method
   /// </summary>
   [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class AspMvcSupressViewErrorAttribute : Attribute { }
+  public sealed class AspMvcSupressViewErrorAttribute : Attribute
+  { }
 
   /// <summary>
   /// ASP.NET MVC attribute. Indicates that a parameter is an MVC display template.
@@ -615,7 +803,8 @@ namespace Cyotek.SkylineGenerator.Annotations
   /// </summary>
   [AttributeUsage(AttributeTargets.Parameter)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class AspMvcDisplayTemplateAttribute : Attribute { }
+  public sealed class AspMvcDisplayTemplateAttribute : Attribute
+  { }
 
   /// <summary>
   /// ASP.NET MVC attribute. Indicates that a parameter is an MVC editor template.
@@ -624,7 +813,8 @@ namespace Cyotek.SkylineGenerator.Annotations
   /// </summary>
   [AttributeUsage(AttributeTargets.Parameter)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class AspMvcEditorTemplateAttribute : Attribute { }
+  public sealed class AspMvcEditorTemplateAttribute : Attribute
+  { }
 
   /// <summary>
   /// ASP.NET MVC attribute. Indicates that a parameter is an MVC template.
@@ -633,7 +823,8 @@ namespace Cyotek.SkylineGenerator.Annotations
   /// </summary>
   [AttributeUsage(AttributeTargets.Parameter)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class AspMvcTemplateAttribute : Attribute { }
+  public sealed class AspMvcTemplateAttribute : Attribute
+  { }
 
   /// <summary>
   /// ASP.NET MVC attribute. If applied to a parameter, indicates that the parameter
@@ -643,7 +834,8 @@ namespace Cyotek.SkylineGenerator.Annotations
   /// </summary>
   [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class AspMvcViewAttribute : PathReferenceAttribute { }
+  public sealed class AspMvcViewAttribute : PathReferenceAttribute
+  { }
 
   /// <summary>
   /// ASP.NET MVC attribute. When applied to a parameter of an attribute,
@@ -658,33 +850,51 @@ namespace Cyotek.SkylineGenerator.Annotations
   /// </code></example>
   [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class AspMvcActionSelectorAttribute : Attribute { }
+  public sealed class AspMvcActionSelectorAttribute : Attribute
+  { }
 
-  [AttributeUsage(
-    AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Field)]
+  [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Field)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class HtmlElementAttributesAttribute : Attribute
   {
-    public HtmlElementAttributesAttribute() { }
+    #region Constructors
+
+    public HtmlElementAttributesAttribute()
+    { }
+
     public HtmlElementAttributesAttribute(string name)
     {
-      Name = name;
+      this.Name = name;
     }
 
+    #endregion
+
+    #region Properties
+
     public string Name { get; private set; }
+
+    #endregion
   }
 
-  [AttributeUsage(
-    AttributeTargets.Parameter | AttributeTargets.Field | AttributeTargets.Property)]
+  [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Field | AttributeTargets.Property)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class HtmlAttributeValueAttribute : Attribute
   {
+    #region Constructors
+
     public HtmlAttributeValueAttribute([NotNull] string name)
     {
-      Name = name;
+      this.Name = name;
     }
 
-    [NotNull] public string Name { get; private set; }
+    #endregion
+
+    #region Properties
+
+    [NotNull]
+    public string Name { get; private set; }
+
+    #endregion
   }
 
   /// <summary>
@@ -694,7 +904,8 @@ namespace Cyotek.SkylineGenerator.Annotations
   /// </summary>
   [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class RazorSectionAttribute : Attribute { }
+  public sealed class RazorSectionAttribute : Attribute
+  { }
 
   /// <summary>
   /// Indicates how method invocation affects content of the collection
@@ -703,12 +914,20 @@ namespace Cyotek.SkylineGenerator.Annotations
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class CollectionAccessAttribute : Attribute
   {
+    #region Constructors
+
     public CollectionAccessAttribute(CollectionAccessType collectionAccessType)
     {
-      CollectionAccessType = collectionAccessType;
+      this.CollectionAccessType = collectionAccessType;
     }
 
+    #endregion
+
+    #region Properties
+
     public CollectionAccessType CollectionAccessType { get; private set; }
+
+    #endregion
   }
 
   [Flags]
@@ -716,10 +935,13 @@ namespace Cyotek.SkylineGenerator.Annotations
   {
     /// <summary>Method does not use or modify content of the collection</summary>
     None = 0,
+
     /// <summary>Method only reads content of the collection but does not modify it</summary>
     Read = 1,
+
     /// <summary>Method can change content of the collection but does not add new elements</summary>
     ModifyExistingContent = 2,
+
     /// <summary>Method can add new elements to the collection</summary>
     UpdatedContent = ModifyExistingContent | 4
   }
@@ -731,7 +953,8 @@ namespace Cyotek.SkylineGenerator.Annotations
   /// </summary>
   [AttributeUsage(AttributeTargets.Method)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class AssertionMethodAttribute : Attribute { }
+  public sealed class AssertionMethodAttribute : Attribute
+  { }
 
   /// <summary>
   /// Indicates the condition parameter of the assertion method. The method itself should be
@@ -742,12 +965,20 @@ namespace Cyotek.SkylineGenerator.Annotations
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class AssertionConditionAttribute : Attribute
   {
+    #region Constructors
+
     public AssertionConditionAttribute(AssertionConditionType conditionType)
     {
-      ConditionType = conditionType;
+      this.ConditionType = conditionType;
     }
 
+    #endregion
+
+    #region Properties
+
     public AssertionConditionType ConditionType { get; private set; }
+
+    #endregion
   }
 
   /// <summary>
@@ -758,10 +989,13 @@ namespace Cyotek.SkylineGenerator.Annotations
   {
     /// <summary>Marked parameter should be evaluated to true</summary>
     IS_TRUE = 0,
+
     /// <summary>Marked parameter should be evaluated to false</summary>
     IS_FALSE = 1,
+
     /// <summary>Marked parameter should be evaluated to null value</summary>
     IS_NULL = 2,
+
     /// <summary>Marked parameter should be evaluated to not null value</summary>
     IS_NOT_NULL = 3,
   }
@@ -773,7 +1007,8 @@ namespace Cyotek.SkylineGenerator.Annotations
   [Obsolete("Use [ContractAnnotation('=> halt')] instead")]
   [AttributeUsage(AttributeTargets.Method)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class TerminatesProgramAttribute : Attribute { }
+  public sealed class TerminatesProgramAttribute : Attribute
+  { }
 
   /// <summary>
   /// Indicates that method is pure LINQ method, with postponed enumeration (like Enumerable.Select,
@@ -782,21 +1017,24 @@ namespace Cyotek.SkylineGenerator.Annotations
   /// </summary>
   [AttributeUsage(AttributeTargets.Method)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class LinqTunnelAttribute : Attribute { }
+  public sealed class LinqTunnelAttribute : Attribute
+  { }
 
   /// <summary>
   /// Indicates that IEnumerable, passed as parameter, is not enumerated.
   /// </summary>
   [AttributeUsage(AttributeTargets.Parameter)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class NoEnumerationAttribute : Attribute { }
+  public sealed class NoEnumerationAttribute : Attribute
+  { }
 
   /// <summary>
   /// Indicates that parameter is regular expression pattern.
   /// </summary>
   [AttributeUsage(AttributeTargets.Parameter)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class RegexPatternAttribute : Attribute { }
+  public sealed class RegexPatternAttribute : Attribute
+  { }
 
   /// <summary>
   /// XAML attribute. Indicates the type that has <c>ItemsSource</c> property and should be
@@ -805,7 +1043,8 @@ namespace Cyotek.SkylineGenerator.Annotations
   /// </summary>
   [AttributeUsage(AttributeTargets.Class)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class XamlItemsControlAttribute : Attribute { }
+  public sealed class XamlItemsControlAttribute : Attribute
+  { }
 
   /// <summary>
   /// XAML attibute. Indicates the property of some <c>BindingBase</c>-derived type, that
@@ -818,103 +1057,154 @@ namespace Cyotek.SkylineGenerator.Annotations
   /// </remarks>
   [AttributeUsage(AttributeTargets.Property)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class XamlItemBindingOfItemsControlAttribute : Attribute { }
+  public sealed class XamlItemBindingOfItemsControlAttribute : Attribute
+  { }
 
   [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class AspChildControlTypeAttribute : Attribute
   {
+    #region Constructors
+
     public AspChildControlTypeAttribute(string tagName, Type controlType)
     {
-      TagName = tagName;
-      ControlType = controlType;
+      this.TagName = tagName;
+      this.ControlType = controlType;
     }
 
-    public string TagName { get; private set; }
+    #endregion
+
+    #region Properties
+
     public Type ControlType { get; private set; }
+
+    public string TagName { get; private set; }
+
+    #endregion
   }
 
   [AttributeUsage(AttributeTargets.Property | AttributeTargets.Method)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class AspDataFieldAttribute : Attribute { }
+  public sealed class AspDataFieldAttribute : Attribute
+  { }
 
   [AttributeUsage(AttributeTargets.Property | AttributeTargets.Method)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class AspDataFieldsAttribute : Attribute { }
+  public sealed class AspDataFieldsAttribute : Attribute
+  { }
 
   [AttributeUsage(AttributeTargets.Property)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class AspMethodPropertyAttribute : Attribute { }
+  public sealed class AspMethodPropertyAttribute : Attribute
+  { }
 
   [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class AspRequiredAttributeAttribute : Attribute
   {
+    #region Constructors
+
     public AspRequiredAttributeAttribute([NotNull] string attribute)
     {
-      Attribute = attribute;
+      this.Attribute = attribute;
     }
 
+    #endregion
+
+    #region Properties
+
     public string Attribute { get; private set; }
+
+    #endregion
   }
 
   [AttributeUsage(AttributeTargets.Property)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class AspTypePropertyAttribute : Attribute
   {
-    public bool CreateConstructorReferences { get; private set; }
+    #region Constructors
 
     public AspTypePropertyAttribute(bool createConstructorReferences)
     {
-      CreateConstructorReferences = createConstructorReferences;
+      this.CreateConstructorReferences = createConstructorReferences;
     }
+
+    #endregion
+
+    #region Properties
+
+    public bool CreateConstructorReferences { get; private set; }
+
+    #endregion
   }
 
   [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class RazorImportNamespaceAttribute : Attribute
   {
+    #region Constructors
+
     public RazorImportNamespaceAttribute(string name)
     {
-      Name = name;
+      this.Name = name;
     }
 
+    #endregion
+
+    #region Properties
+
     public string Name { get; private set; }
+
+    #endregion
   }
 
   [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
   public sealed class RazorInjectionAttribute : Attribute
   {
+    #region Constructors
+
     public RazorInjectionAttribute(string type, string fieldName)
     {
-      Type = type;
-      FieldName = fieldName;
+      this.Type = type;
+      this.FieldName = fieldName;
     }
 
-    public string Type { get; private set; }
+    #endregion
+
+    #region Properties
+
     public string FieldName { get; private set; }
+
+    public string Type { get; private set; }
+
+    #endregion
   }
 
   [AttributeUsage(AttributeTargets.Method)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class RazorHelperCommonAttribute : Attribute { }
+  public sealed class RazorHelperCommonAttribute : Attribute
+  { }
 
   [AttributeUsage(AttributeTargets.Property)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class RazorLayoutAttribute : Attribute { }
+  public sealed class RazorLayoutAttribute : Attribute
+  { }
 
   [AttributeUsage(AttributeTargets.Method)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class RazorWriteLiteralMethodAttribute : Attribute { }
+  public sealed class RazorWriteLiteralMethodAttribute : Attribute
+  { }
 
   [AttributeUsage(AttributeTargets.Method)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class RazorWriteMethodAttribute : Attribute { }
+  public sealed class RazorWriteMethodAttribute : Attribute
+  { }
 
   [AttributeUsage(AttributeTargets.Parameter)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class RazorWriteMethodParameterAttribute : Attribute { }
+  public sealed class RazorWriteMethodParameterAttribute : Attribute
+  { }
 
   /// <summary>
   /// Prevents the Member Reordering feature from tossing members of the marked class.
@@ -924,5 +1214,6 @@ namespace Cyotek.SkylineGenerator.Annotations
   /// </remarks>
   [AttributeUsage(AttributeTargets.All)]
   [Conditional("JETBRAINS_ANNOTATIONS")]
-  public sealed class NoReorder : Attribute { }
+  public sealed class NoReorder : Attribute
+  { }
 }

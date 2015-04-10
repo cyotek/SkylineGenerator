@@ -6,7 +6,7 @@ namespace Cyotek.SkylineGenerator
 {
   internal sealed partial class AboutDialog : Form
   {
-    #region Public Constructors
+    #region Constructors
 
     public AboutDialog()
     {
@@ -15,7 +15,7 @@ namespace Cyotek.SkylineGenerator
 
     #endregion
 
-    #region Overridden Methods
+    #region Methods
 
     protected override void OnLoad(EventArgs e)
     {
@@ -27,10 +27,6 @@ namespace Cyotek.SkylineGenerator
 
       base.OnLoad(e);
     }
-
-    #endregion
-
-    #region Event Handlers
 
     private void closeButton_Click(object sender, EventArgs e)
     {

@@ -3,16 +3,22 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using Cyotek.SkylineGenerator.Annotations;
+using Newtonsoft.Json;
 
 namespace Cyotek.SkylineGenerator
 {
+  [JsonObject]
   internal class BuildingStyle : INotifyPropertyChanged, ICloneable
   {
     #region Fields
 
     private Color _color;
 
+    private bool _growWindows;
+
     private Color _lightColor;
+
+    private bool _mirror;
 
     private Size _windowSize;
 
@@ -46,6 +52,22 @@ namespace Cyotek.SkylineGenerator
       }
     }
 
+    [Category("")]
+    [DefaultValue(false)]
+    public virtual bool GrowWindows
+    {
+      get { return _growWindows; }
+      set
+      {
+        if (this.GrowWindows != value)
+        {
+          _growWindows = value;
+
+          this.OnPropertyChanged();
+        }
+      }
+    }
+
     [DefaultValue(typeof(Color), "Yellow")]
     public Color LightColor
     {
@@ -55,6 +77,22 @@ namespace Cyotek.SkylineGenerator
         if (_lightColor != value)
         {
           _lightColor = value;
+
+          this.OnPropertyChanged();
+        }
+      }
+    }
+
+    [Category("")]
+    [DefaultValue(false)]
+    public virtual bool Mirror
+    {
+      get { return _mirror; }
+      set
+      {
+        if (this.Mirror != value)
+        {
+          _mirror = value;
 
           this.OnPropertyChanged();
         }

@@ -4,9 +4,11 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Cyotek.SkylineGenerator.Annotations;
+using Newtonsoft.Json;
 
 namespace Cyotek.SkylineGenerator
 {
+  [JsonArray]
   internal class BuildingStyleCollection : Collection<BuildingStyle>, INotifyCollectionChanged, INotifyPropertyChanged
   {
     #region Methods

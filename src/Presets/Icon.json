@@ -1,0 +1,31 @@
+{
+  "Background": {
+    "EndColor": "133, 0, 195",
+    "StartColor": "3, 0, 136"
+  },
+  "Buildings": [
+    {
+      "Color": "37, 36, 90",
+      "LightColor": "255, 254, 203",
+      "WindowSize": "1, 1"
+    },
+    {
+      "Color": "1, 0, 58",
+      "LightColor": "74, 131, 171",
+      "WindowSize": "1, 1"
+    }
+  ],
+  "Density": 100,
+  "Horizon": 16,
+  "Image": null,
+  "LightingDensity": 0.5,
+  "MaximumBuildingSize": "8, 24",
+  "MinimumBuildingSize": "2, 4",
+  "Seed": 32,
+  "Size": "32, 32",
+  "Stars": {
+    "Color": "128, 255, 255, 255",
+    "Density": 8,
+    "Size": "1, 1"
+  }
+}

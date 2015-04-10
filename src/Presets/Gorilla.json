@@ -1,0 +1,26 @@
+{
+  "Background": {
+    "EndColor": "Blue",
+    "StartColor": "Black"
+  },
+  "Buildings": [
+    {
+      "Color": "Black",
+      "LightColor": "Yellow",
+      "WindowSize": "5, 5"
+    }
+  ],
+  "Density": 50,
+  "Horizon": 100,
+  "Image": null,
+  "LightingDensity": 0.5,
+  "MaximumBuildingSize": "60, 180",
+  "MinimumBuildingSize": "10, 20",
+  "Seed": 0,
+  "Size": "320, 200",
+  "Stars": {
+    "Color": "White",
+    "Density": 0,
+    "Size": "4, 4"
+  }
+}

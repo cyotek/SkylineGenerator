@@ -28,18 +28,15 @@
     /// </summary>
     private void InitializeComponent()
     {
-      Cyotek.SkylineGenerator.BackgroundStyle backgroundStyle1 = new Cyotek.SkylineGenerator.BackgroundStyle();
-      Cyotek.SkylineGenerator.BuildingStyle buildingStyle1 = new Cyotek.SkylineGenerator.BuildingStyle();
-      Cyotek.SkylineGenerator.BuildingStyle buildingStyle2 = new Cyotek.SkylineGenerator.BuildingStyle();
-      Cyotek.SkylineGenerator.StarStyle starStyle1 = new Cyotek.SkylineGenerator.StarStyle();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
       this.splitContainer = new System.Windows.Forms.SplitContainer();
       this.previewImageBox = new Cyotek.Windows.Forms.ImageBox();
       this.propertyGrid = new System.Windows.Forms.PropertyGrid();
-      this.simpleSkylineGenerator = new Cyotek.SkylineGenerator.SimpleSkylineGenerator();
       this.menuStrip = new System.Windows.Forms.MenuStrip();
       this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.savePresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+      this.exportImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
       this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,7 +49,8 @@
       this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStrip = new System.Windows.Forms.ToolStrip();
-      this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
+      this.savePresetToolStripButton = new System.Windows.Forms.ToolStripButton();
+      this.exportImageToolStripButton = new System.Windows.Forms.ToolStripButton();
       this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
       this.copyToolStripButton = new System.Windows.Forms.ToolStripButton();
       this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
@@ -64,12 +62,15 @@
       this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
       this.presetToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
       this.statusStrip = new System.Windows.Forms.StatusStrip();
+      this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+      this.seedToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
       this.splitContainer.Panel1.SuspendLayout();
       this.splitContainer.Panel2.SuspendLayout();
       this.splitContainer.SuspendLayout();
       this.menuStrip.SuspendLayout();
       this.toolStrip.SuspendLayout();
+      this.statusStrip.SuspendLayout();
       this.SuspendLayout();
       // 
       // splitContainer
@@ -103,21 +104,8 @@
       this.propertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
       this.propertyGrid.Location = new System.Drawing.Point(0, 0);
       this.propertyGrid.Name = "propertyGrid";
-      this.propertyGrid.SelectedObject = this.simpleSkylineGenerator;
       this.propertyGrid.Size = new System.Drawing.Size(296, 325);
       this.propertyGrid.TabIndex = 0;
-      // 
-      // simpleSkylineGenerator
-      // 
-      this.simpleSkylineGenerator.Background = backgroundStyle1;
-      buildingStyle1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(90)))));
-      buildingStyle1.LightColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(254)))), ((int)(((byte)(203)))));
-      buildingStyle2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(0)))), ((int)(((byte)(58)))));
-      buildingStyle2.LightColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(171)))));
-      new Cyotek.SkylineGenerator.BuildingStyleCollection().Add(buildingStyle1);
-      new Cyotek.SkylineGenerator.BuildingStyleCollection().Add(buildingStyle2);
-      this.simpleSkylineGenerator.Stars = starStyle1;
-      this.simpleSkylineGenerator.Generated += new System.EventHandler(this.simpleSkylineGenerator_Generated);
       // 
       // menuStrip
       // 
@@ -135,32 +123,48 @@
       // fileToolStripMenuItem
       // 
       this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveToolStripMenuItem,
+            this.savePresetToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.exportImageToolStripMenuItem,
             this.toolStripSeparator2,
             this.exitToolStripMenuItem});
       this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
       this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
       this.fileToolStripMenuItem.Text = "&File";
       // 
-      // saveToolStripMenuItem
+      // savePresetToolStripMenuItem
       // 
-      this.saveToolStripMenuItem.Image = global::Cyotek.SkylineGenerator.Properties.Resources.ExportImage;
-      this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-      this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-      this.saveToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
-      this.saveToolStripMenuItem.Text = "&Save";
-      this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+      this.savePresetToolStripMenuItem.Image = global::Cyotek.SkylineGenerator.Properties.Resources.Save;
+      this.savePresetToolStripMenuItem.Name = "savePresetToolStripMenuItem";
+      this.savePresetToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+      this.savePresetToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+      this.savePresetToolStripMenuItem.Text = "&Save Preset...";
+      this.savePresetToolStripMenuItem.Click += new System.EventHandler(this.savePresetToolStripMenuItem_Click);
+      // 
+      // toolStripMenuItem1
+      // 
+      this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+      this.toolStripMenuItem1.Size = new System.Drawing.Size(189, 6);
+      // 
+      // exportImageToolStripMenuItem
+      // 
+      this.exportImageToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exportImageToolStripMenuItem.Image")));
+      this.exportImageToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.exportImageToolStripMenuItem.Name = "exportImageToolStripMenuItem";
+      this.exportImageToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+      this.exportImageToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+      this.exportImageToolStripMenuItem.Text = "&Export Image...";
+      this.exportImageToolStripMenuItem.Click += new System.EventHandler(this.exportImageToolStripMenuItem_Click);
       // 
       // toolStripSeparator2
       // 
       this.toolStripSeparator2.Name = "toolStripSeparator2";
-      this.toolStripSeparator2.Size = new System.Drawing.Size(135, 6);
+      this.toolStripSeparator2.Size = new System.Drawing.Size(189, 6);
       // 
       // exitToolStripMenuItem
       // 
       this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-      this.exitToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+      this.exitToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
       this.exitToolStripMenuItem.Text = "E&xit";
       this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
       // 
@@ -237,14 +241,15 @@
       // aboutToolStripMenuItem
       // 
       this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-      this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+      this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
       this.aboutToolStripMenuItem.Text = "&About...";
       this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
       // 
       // toolStrip
       // 
       this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveToolStripButton,
+            this.savePresetToolStripButton,
+            this.exportImageToolStripButton,
             this.toolStripSeparator6,
             this.copyToolStripButton,
             this.toolStripSeparator7,
@@ -260,15 +265,25 @@
       this.toolStrip.Size = new System.Drawing.Size(803, 25);
       this.toolStrip.TabIndex = 2;
       // 
-      // saveToolStripButton
+      // savePresetToolStripButton
       // 
-      this.saveToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.saveToolStripButton.Image = global::Cyotek.SkylineGenerator.Properties.Resources.ExportImage;
-      this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.saveToolStripButton.Name = "saveToolStripButton";
-      this.saveToolStripButton.Size = new System.Drawing.Size(23, 22);
-      this.saveToolStripButton.Text = "&Save";
-      this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+      this.savePresetToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.savePresetToolStripButton.Image = global::Cyotek.SkylineGenerator.Properties.Resources.Save;
+      this.savePresetToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.savePresetToolStripButton.Name = "savePresetToolStripButton";
+      this.savePresetToolStripButton.Size = new System.Drawing.Size(23, 22);
+      this.savePresetToolStripButton.Text = "Save Preset";
+      this.savePresetToolStripButton.Click += new System.EventHandler(this.savePresetToolStripMenuItem_Click);
+      // 
+      // exportImageToolStripButton
+      // 
+      this.exportImageToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.exportImageToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("exportImageToolStripButton.Image")));
+      this.exportImageToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.exportImageToolStripButton.Name = "exportImageToolStripButton";
+      this.exportImageToolStripButton.Size = new System.Drawing.Size(23, 22);
+      this.exportImageToolStripButton.Text = "Export Image";
+      this.exportImageToolStripButton.Click += new System.EventHandler(this.exportImageToolStripMenuItem_Click);
       // 
       // toolStripSeparator6
       // 
@@ -345,10 +360,25 @@
       // 
       // statusStrip
       // 
+      this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.seedToolStripStatusLabel});
       this.statusStrip.Location = new System.Drawing.Point(0, 374);
       this.statusStrip.Name = "statusStrip";
       this.statusStrip.Size = new System.Drawing.Size(803, 22);
       this.statusStrip.TabIndex = 3;
+      // 
+      // toolStripStatusLabel1
+      // 
+      this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+      this.toolStripStatusLabel1.Size = new System.Drawing.Size(788, 17);
+      this.toolStripStatusLabel1.Spring = true;
+      this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+      // 
+      // seedToolStripStatusLabel
+      // 
+      this.seedToolStripStatusLabel.Name = "seedToolStripStatusLabel";
+      this.seedToolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
       // 
       // MainForm
       // 
@@ -371,6 +401,8 @@
       this.menuStrip.PerformLayout();
       this.toolStrip.ResumeLayout(false);
       this.toolStrip.PerformLayout();
+      this.statusStrip.ResumeLayout(false);
+      this.statusStrip.PerformLayout();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -380,13 +412,12 @@
 
     private System.Windows.Forms.SplitContainer splitContainer;
     private System.Windows.Forms.PropertyGrid propertyGrid;
-    private SimpleSkylineGenerator simpleSkylineGenerator;
     private Cyotek.Windows.Forms.ImageBox previewImageBox;
     private System.Windows.Forms.MenuStrip menuStrip;
     private System.Windows.Forms.ToolStrip toolStrip;
     private System.Windows.Forms.StatusStrip statusStrip;
     private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-    private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem exportImageToolStripMenuItem;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
@@ -394,7 +425,7 @@
     private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-    private System.Windows.Forms.ToolStripButton saveToolStripButton;
+    private System.Windows.Forms.ToolStripButton exportImageToolStripButton;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
     private System.Windows.Forms.ToolStripButton copyToolStripButton;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
@@ -409,6 +440,11 @@
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     private System.Windows.Forms.ToolStripComboBox presetToolStripComboBox;
     private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+    private System.Windows.Forms.ToolStripMenuItem savePresetToolStripMenuItem;
+    private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+    private System.Windows.Forms.ToolStripButton savePresetToolStripButton;
+    private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+    private System.Windows.Forms.ToolStripStatusLabel seedToolStripStatusLabel;
   }
 }
 
