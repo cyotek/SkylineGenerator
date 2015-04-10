@@ -296,6 +296,7 @@ namespace Cyotek.SkylineGenerator
     public void Generate()
     {
       Bitmap bitmap;
+      int buildingCount;
 
       bitmap = new Bitmap(this.Size.Width, this.Size.Height, PixelFormat.Format32bppArgb);
 
@@ -303,6 +304,7 @@ namespace Cyotek.SkylineGenerator
       _lightingRandom = this.Seed == 0 ? new Random() : new Random(this.Seed);
       _styleRandom = this.Seed == 0 ? new Random() : new Random(this.Seed);
       _starsRandom = this.Seed == 0 ? new Random() : new Random(this.Seed);
+      buildingCount = this.Buildings.Count;
 
       using (Graphics g = Graphics.FromImage(bitmap))
       {
@@ -312,9 +314,12 @@ namespace Cyotek.SkylineGenerator
         {
           int buildingStyleIndex;
 
-          buildingStyleIndex = _styleRandom.Next(0, this.Buildings.Count);
+          buildingStyleIndex = _styleRandom.Next(0, buildingCount);
 
-          this.DrawBuilding(g, this.Buildings[buildingStyleIndex]);
+          if (buildingStyleIndex < this.Buildings.Count)
+          {
+            this.DrawBuilding(g, this.Buildings[buildingStyleIndex]);
+          }
         }
       }
 
@@ -399,29 +404,32 @@ namespace Cyotek.SkylineGenerator
 
     private void DrawBuilding(Graphics g, BuildingStyle style)
     {
-      int w;
-      int h;
-      int x;
-      int y;
-      int maxH;
-      int offset;
-      Rectangle bounds;
-
-      maxH = this.MaximumBuildingSize.Height / _buildingRandom.Next(1, 10);
-      w = _buildingRandom.Next(this.MinimumBuildingSize.Width, this.MaximumBuildingSize.Width);
-      offset = w % style.WindowSize.Width;
-      w += offset;
-      h = maxH < this.MinimumBuildingSize.Height ? this.MinimumBuildingSize.Height : _buildingRandom.Next(this.MinimumBuildingSize.Height, maxH);
-      x = _buildingRandom.Next(-this.MaximumBuildingSize.Width, this.Size.Width + (this.MaximumBuildingSize.Width * 2));
-      y = this.Size.Height - h;
-      bounds = new Rectangle(x, y, w, h);
-
-      using (Brush brush = new SolidBrush(style.Color))
+      if (this.MinimumBuildingSize.Width < this.MaximumBuildingSize.Width && this.MinimumBuildingSize.Height < this.MaximumBuildingSize.Height)
       {
-        g.FillRectangle(brush, bounds);
-      }
+        int w;
+        int h;
+        int x;
+        int y;
+        int maxH;
+        int offset;
+        Rectangle bounds;
 
-      this.DrawLights(g, style, bounds);
+        maxH = this.MaximumBuildingSize.Height / _buildingRandom.Next(1, 10);
+        w = _buildingRandom.Next(this.MinimumBuildingSize.Width, this.MaximumBuildingSize.Width);
+        offset = w % style.WindowSize.Width;
+        w += offset;
+        h = maxH < this.MinimumBuildingSize.Height ? this.MinimumBuildingSize.Height : _buildingRandom.Next(this.MinimumBuildingSize.Height, maxH);
+        x = _buildingRandom.Next(-this.MaximumBuildingSize.Width, this.Size.Width + (this.MaximumBuildingSize.Width * 2));
+        y = this.Size.Height - h;
+        bounds = new Rectangle(x, y, w, h);
+
+        using (Brush brush = new SolidBrush(style.Color))
+        {
+          g.FillRectangle(brush, bounds);
+        }
+
+        this.DrawLights(g, style, bounds);
+      }
     }
 
     private void DrawLights(Graphics g, BuildingStyle style, Rectangle bounds)
