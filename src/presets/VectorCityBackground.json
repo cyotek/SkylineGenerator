@@ -1,0 +1,36 @@
+{
+  "Background": {
+    "EndColor": "101, 51, 162",
+    "StartColor": "63, 30, 99"
+  },
+  "Buildings": [
+    {
+      "Color": "Black",
+      "GrowWindows": false,
+      "LightColor": "23, 183, 231",
+      "Mirror": false,
+      "WindowSize": "4, 4"
+    },
+    {
+      "Color": "Black",
+      "GrowWindows": false,
+      "LightColor": "253, 174, 19",
+      "Mirror": false,
+      "WindowSize": "4, 4"
+    }
+  ],
+  "Density": 100,
+  "Horizon": 360,
+  "Image": null,
+  "LightingDensity": 0.5,
+  "MaximumBuildingSize": "50, 200",
+  "MinimumBuildingSize": "10, 20",
+  "Seed": 0,
+  "Size": "800, 200",
+  "Stars": {
+    "Color": "128, 255, 255, 255",
+    "Density": 20,
+    "Size": "4, 4"
+  },
+  "Wrap": true
+}
