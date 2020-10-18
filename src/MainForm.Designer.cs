@@ -1,4 +1,4 @@
-﻿namespace Cyotek.SkylineGenerator
+namespace Cyotek.Demo
 {
   partial class MainForm
   {
@@ -139,7 +139,7 @@
       this.savePresetToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
       this.savePresetToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
       this.savePresetToolStripMenuItem.Text = "&Save Preset...";
-      this.savePresetToolStripMenuItem.Click += new System.EventHandler(this.savePresetToolStripMenuItem_Click);
+      this.savePresetToolStripMenuItem.Click += new System.EventHandler(this.SavePresetToolStripMenuItem_Click);
       // 
       // toolStripMenuItem1
       // 
@@ -154,7 +154,7 @@
       this.exportImageToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
       this.exportImageToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
       this.exportImageToolStripMenuItem.Text = "&Export Image...";
-      this.exportImageToolStripMenuItem.Click += new System.EventHandler(this.exportImageToolStripMenuItem_Click);
+      this.exportImageToolStripMenuItem.Click += new System.EventHandler(this.ExportImageToolStripMenuItem_Click);
       // 
       // toolStripSeparator2
       // 
@@ -166,7 +166,7 @@
       this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
       this.exitToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
       this.exitToolStripMenuItem.Text = "E&xit";
-      this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+      this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
       // 
       // editToolStripMenuItem
       // 
@@ -184,7 +184,7 @@
       this.copyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
       this.copyToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
       this.copyToolStripMenuItem.Text = "&Copy";
-      this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+      this.copyToolStripMenuItem.Click += new System.EventHandler(this.CopyToolStripMenuItem_Click);
       // 
       // toolsToolStripMenuItem
       // 
@@ -201,7 +201,7 @@
       this.generateSkylineToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
       this.generateSkylineToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
       this.generateSkylineToolStripMenuItem.Text = "&Generate Skyline";
-      this.generateSkylineToolStripMenuItem.Click += new System.EventHandler(this.generateToolStripButton_Click);
+      this.generateSkylineToolStripMenuItem.Click += new System.EventHandler(this.GenerateToolStripButton_Click);
       // 
       // viewToolStripMenuItem
       // 
@@ -219,7 +219,7 @@
       this.actualSizeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D0)));
       this.actualSizeToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
       this.actualSizeToolStripMenuItem.Text = "&Actual Size";
-      this.actualSizeToolStripMenuItem.Click += new System.EventHandler(this.actualSizeToolStripButton_Click);
+      this.actualSizeToolStripMenuItem.Click += new System.EventHandler(this.ActualSizeToolStripButton_Click);
       // 
       // sizeToFitToolStripMenuItem
       // 
@@ -228,7 +228,7 @@
       this.sizeToFitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
       this.sizeToFitToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
       this.sizeToFitToolStripMenuItem.Text = "Size to &Fit";
-      this.sizeToFitToolStripMenuItem.Click += new System.EventHandler(this.sizeToFitToolStripButton_Click);
+      this.sizeToFitToolStripMenuItem.Click += new System.EventHandler(this.SizeToFitToolStripButton_Click);
       // 
       // helpToolStripMenuItem
       // 
@@ -243,7 +243,7 @@
       this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
       this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
       this.aboutToolStripMenuItem.Text = "&About...";
-      this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+      this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
       // 
       // toolStrip
       // 
@@ -273,7 +273,7 @@
       this.savePresetToolStripButton.Name = "savePresetToolStripButton";
       this.savePresetToolStripButton.Size = new System.Drawing.Size(23, 22);
       this.savePresetToolStripButton.Text = "Save Preset";
-      this.savePresetToolStripButton.Click += new System.EventHandler(this.savePresetToolStripMenuItem_Click);
+      this.savePresetToolStripButton.Click += new System.EventHandler(this.SavePresetToolStripMenuItem_Click);
       // 
       // exportImageToolStripButton
       // 
@@ -283,7 +283,7 @@
       this.exportImageToolStripButton.Name = "exportImageToolStripButton";
       this.exportImageToolStripButton.Size = new System.Drawing.Size(23, 22);
       this.exportImageToolStripButton.Text = "Export Image";
-      this.exportImageToolStripButton.Click += new System.EventHandler(this.exportImageToolStripMenuItem_Click);
+      this.exportImageToolStripButton.Click += new System.EventHandler(this.ExportImageToolStripMenuItem_Click);
       // 
       // toolStripSeparator6
       // 
@@ -298,7 +298,7 @@
       this.copyToolStripButton.Name = "copyToolStripButton";
       this.copyToolStripButton.Size = new System.Drawing.Size(23, 22);
       this.copyToolStripButton.Text = "&Copy";
-      this.copyToolStripButton.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+      this.copyToolStripButton.Click += new System.EventHandler(this.CopyToolStripMenuItem_Click);
       // 
       // toolStripSeparator7
       // 
@@ -312,7 +312,7 @@
       this.generateToolStripButton.Name = "generateToolStripButton";
       this.generateToolStripButton.Size = new System.Drawing.Size(74, 22);
       this.generateToolStripButton.Text = "&Generate";
-      this.generateToolStripButton.Click += new System.EventHandler(this.generateToolStripButton_Click);
+      this.generateToolStripButton.Click += new System.EventHandler(this.GenerateToolStripButton_Click);
       // 
       // toolStripSeparator8
       // 
@@ -327,7 +327,7 @@
       this.actualSizeToolStripButton.Name = "actualSizeToolStripButton";
       this.actualSizeToolStripButton.Size = new System.Drawing.Size(23, 22);
       this.actualSizeToolStripButton.Text = "Actual Size";
-      this.actualSizeToolStripButton.Click += new System.EventHandler(this.actualSizeToolStripButton_Click);
+      this.actualSizeToolStripButton.Click += new System.EventHandler(this.ActualSizeToolStripButton_Click);
       // 
       // sizeToFitToolStripButton
       // 
@@ -337,7 +337,7 @@
       this.sizeToFitToolStripButton.Name = "sizeToFitToolStripButton";
       this.sizeToFitToolStripButton.Size = new System.Drawing.Size(23, 22);
       this.sizeToFitToolStripButton.Text = "Size To Fit";
-      this.sizeToFitToolStripButton.Click += new System.EventHandler(this.sizeToFitToolStripButton_Click);
+      this.sizeToFitToolStripButton.Click += new System.EventHandler(this.SizeToFitToolStripButton_Click);
       // 
       // toolStripSeparator1
       // 
@@ -356,7 +356,7 @@
       this.presetToolStripComboBox.Name = "presetToolStripComboBox";
       this.presetToolStripComboBox.Size = new System.Drawing.Size(121, 25);
       this.presetToolStripComboBox.Sorted = true;
-      this.presetToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.presetToolStripComboBox_SelectedIndexChanged);
+      this.presetToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.PresetToolStripComboBox_SelectedIndexChanged);
       // 
       // statusStrip
       // 

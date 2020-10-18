@@ -1,11 +1,10 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Cyotek.SkylineGenerator.Annotations;
 
 namespace Cyotek.SkylineGenerator
 {
@@ -122,24 +121,12 @@ namespace Cyotek.SkylineGenerator
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     protected virtual void OnGenerated(EventArgs e)
     {
-      EventHandler handler;
-
-      handler = this.Generated;
-
-      if (handler != null)
-      {
-        handler(this, e);
-      }
+      this.Generated?.Invoke(this, e);
     }
 
-    [NotifyPropertyChangedInvocator]
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
-      PropertyChangedEventHandler handler = this.PropertyChanged;
-      if (handler != null)
-      {
-        handler(this, new PropertyChangedEventArgs(propertyName));
-      }
+      this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
     /// <summary>
@@ -154,16 +141,13 @@ namespace Cyotek.SkylineGenerator
 
       handler = this.SettingsChanged;
 
-      if (handler != null)
-      {
-        handler(this, e);
-      }
+      handler?.Invoke(this, e);
     }
 
     private void DrawBackground(Graphics g)
     {
-      Rectangle bounds;
       SimpleSkylineGeneratorSettings settings;
+      Rectangle bounds;
 
       settings = this.Settings;
 
@@ -202,6 +186,7 @@ namespace Cyotek.SkylineGenerator
         bounds = this.GetNewBuildingBounds(left, right);
 
         this.DrawBuilding(g, left, bounds[0]);
+
         if (right != null)
         {
           this.DrawBuilding(g, right, bounds[1]);
@@ -221,8 +206,9 @@ namespace Cyotek.SkylineGenerator
 
     private void DrawBuildings(Graphics g)
     {
-      BuildingStyle[] buildingStyles;
       SimpleSkylineGeneratorSettings settings;
+      BuildingStyle[] buildingStyles;
+
       settings = this.Settings;
 
       buildingStyles = settings.Buildings.ToArray();
@@ -231,9 +217,9 @@ namespace Cyotek.SkylineGenerator
       {
         for (int i = 0; i < settings.Density; i++)
         {
+          int leftIndex;
           BuildingStyle left;
           BuildingStyle right;
-          int leftIndex;
 
           leftIndex = _styleRandom.Next(0, buildingStyles.Length);
           left = buildingStyles[leftIndex];
@@ -261,10 +247,10 @@ namespace Cyotek.SkylineGenerator
 
     private void DrawLights(Graphics g, BuildingStyle style, Rectangle bounds)
     {
+      SimpleSkylineGeneratorSettings settings;
       int windowWidth;
       int windowHeight;
       int right;
-      SimpleSkylineGeneratorSettings settings;
 
       settings = this.Settings;
 
@@ -328,6 +314,7 @@ namespace Cyotek.SkylineGenerator
 
     private Rectangle[] GetNewBuildingBounds(BuildingStyle left, BuildingStyle right)
     {
+      SimpleSkylineGeneratorSettings settings;
       int leftW;
       int rightW;
       int h;
@@ -337,7 +324,6 @@ namespace Cyotek.SkylineGenerator
       int maxX;
       Rectangle leftBounds;
       Rectangle rightBounds;
-      SimpleSkylineGeneratorSettings settings;
 
       settings = this.Settings;
 

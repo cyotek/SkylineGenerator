@@ -1,8 +1,7 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.CompilerServices;
-using Cyotek.SkylineGenerator.Annotations;
 using Newtonsoft.Json;
 
 namespace Cyotek.SkylineGenerator
@@ -123,14 +122,9 @@ namespace Cyotek.SkylineGenerator
       return (BuildingStyle)this.MemberwiseClone();
     }
 
-    [NotifyPropertyChangedInvocator]
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
-      PropertyChangedEventHandler handler = this.PropertyChanged;
-      if (handler != null)
-      {
-        handler(this, new PropertyChangedEventArgs(propertyName));
-      }
+      this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
     #endregion

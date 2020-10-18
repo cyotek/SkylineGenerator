@@ -1,13 +1,15 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
+using Cyotek.Demo.Windows.Forms;
+using Cyotek.SkylineGenerator;
 using Newtonsoft.Json;
 
-namespace Cyotek.SkylineGenerator
+namespace Cyotek.Demo
 {
-  public partial class MainForm : Form
+  internal partial class MainForm : BaseForm
   {
     #region Constructors
 
@@ -77,7 +79,7 @@ namespace Cyotek.SkylineGenerator
       }
     }
 
-    private void actualSizeToolStripButton_Click(object sender, EventArgs e)
+    private void ActualSizeToolStripButton_Click(object sender, EventArgs e)
     {
       previewImageBox.ActualSize();
     }
@@ -128,24 +130,13 @@ namespace Cyotek.SkylineGenerator
       }
       finally
       {
-        if (opaqueBitmap != null)
-        {
-          opaqueBitmap.Dispose();
-        }
-
-        if (transparentBitmapStream != null)
-        {
-          transparentBitmapStream.Dispose();
-        }
-
-        if (transparentBitmap != null)
-        {
-          transparentBitmap.Dispose();
-        }
+        opaqueBitmap?.Dispose();
+        transparentBitmapStream?.Dispose();
+        transparentBitmap?.Dispose();
       }
     }
 
-    private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+    private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
     {
       try
       {
@@ -157,7 +148,7 @@ namespace Cyotek.SkylineGenerator
       }
     }
 
-    private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+    private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
     {
       Application.Exit();
     }
@@ -176,19 +167,19 @@ namespace Cyotek.SkylineGenerator
 
     private SimpleSkylineGenerator _simpleSkylineGenerator;
 
-    private void generateToolStripButton_Click(object sender, EventArgs e)
+    private void GenerateToolStripButton_Click(object sender, EventArgs e)
     {
       _simpleSkylineGenerator.Generate();
     }
 
-    private void exportImageToolStripMenuItem_Click(object sender, EventArgs e)
+    private void ExportImageToolStripMenuItem_Click(object sender, EventArgs e)
     {
       using (SaveFileDialog dialog = new SaveFileDialog
-                                     {
-                                       Title = "Save Image As",
-                                       Filter = "PNG Files (*.png)|*.png|All Files (*.*)|*.*",
-                                       DefaultExt = "png"
-                                     })
+      {
+        Title = "Save Image As",
+        Filter = "PNG Files (*.png)|*.png|All Files (*.*)|*.*",
+        DefaultExt = "png"
+      })
       {
         if (dialog.ShowDialog(this) == DialogResult.OK)
         {
@@ -203,14 +194,14 @@ namespace Cyotek.SkylineGenerator
       seedToolStripStatusLabel.Text = string.Concat("Seed: ", _simpleSkylineGenerator.ActualSeed.ToString());
     }
 
-    private void sizeToFitToolStripButton_Click(object sender, EventArgs e)
+    private void SizeToFitToolStripButton_Click(object sender, EventArgs e)
     {
       previewImageBox.ZoomToFit();
     }
 
     #endregion
 
-    private void presetToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
+    private void PresetToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
     {
       this.LoadPreset(Path.Combine(this.PresetFolder, Path.ChangeExtension(presetToolStripComboBox.Text, ".json")));
     }
@@ -235,7 +226,7 @@ namespace Cyotek.SkylineGenerator
       }
     }
 
-    private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+    private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
     {
       using (AboutDialog dialog = new AboutDialog())
       {
@@ -243,15 +234,15 @@ namespace Cyotek.SkylineGenerator
       }
     }
 
-    private void savePresetToolStripMenuItem_Click(object sender, EventArgs e)
+    private void SavePresetToolStripMenuItem_Click(object sender, EventArgs e)
     {
       using (SaveFileDialog dialog = new SaveFileDialog
-                                     {
-                                       Title = "Save Preset As",
-                                       Filter = "Preset Files (*.json)|*.json|All Files (*.*)|*.*",
-                                       DefaultExt = "json",
-                                       InitialDirectory = this.PresetFolder
-                                     })
+      {
+        Title = "Save Preset As",
+        Filter = "Preset Files (*.json)|*.json|All Files (*.*)|*.*",
+        DefaultExt = "json",
+        InitialDirectory = this.PresetFolder
+      })
       {
         if (dialog.ShowDialog(this) == DialogResult.OK)
         {
@@ -269,9 +260,9 @@ namespace Cyotek.SkylineGenerator
           JsonSerializer serializer;
 
           serializer = new JsonSerializer
-                       {
-                         Formatting = Formatting.Indented
-                       };
+          {
+            Formatting = Formatting.Indented
+          };
 
           serializer.Serialize(stream, settings);
 

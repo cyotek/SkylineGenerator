@@ -1,9 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Cyotek.SkylineGenerator.Annotations;
 using Newtonsoft.Json;
 
 namespace Cyotek.SkylineGenerator
@@ -56,24 +55,12 @@ namespace Cyotek.SkylineGenerator
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     protected virtual void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
     {
-      NotifyCollectionChangedEventHandler handler;
-
-      handler = this.CollectionChanged;
-
-      if (handler != null)
-      {
-        handler(this, e);
-      }
+      this.CollectionChanged?.Invoke(this, e);
     }
 
-    [NotifyPropertyChangedInvocator]
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
-      PropertyChangedEventHandler handler = this.PropertyChanged;
-      if (handler != null)
-      {
-        handler(this, new PropertyChangedEventArgs(propertyName));
-      }
+      this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
     /// <summary>

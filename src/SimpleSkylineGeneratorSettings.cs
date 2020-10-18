@@ -1,8 +1,7 @@
-﻿using System.Collections.Specialized;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.CompilerServices;
-using Cyotek.SkylineGenerator.Annotations;
 using Newtonsoft.Json;
 
 namespace Cyotek.SkylineGenerator
@@ -43,19 +42,21 @@ namespace Cyotek.SkylineGenerator
     public SimpleSkylineGeneratorSettings()
     {
       this.Background = new BackgroundStyle();
-      this.Buildings = new BuildingStyleCollection();
-      this.Buildings.Add(new BuildingStyle
-                         {
-                           Color = Color.FromArgb(37, 36, 90),
-                           LightColor = Color.FromArgb(255, 254, 203),
-                           GrowWindows = true
-                         });
-      this.Buildings.Add(new BuildingStyle
-                         {
-                           Color = Color.FromArgb(1, 0, 58),
-                           LightColor = Color.FromArgb(74, 131, 171),
-                           GrowWindows = true
-                         });
+      this.Buildings = new BuildingStyleCollection
+      {
+        new BuildingStyle
+        {
+          Color = Color.FromArgb(37, 36, 90),
+          LightColor = Color.FromArgb(255, 254, 203),
+          GrowWindows = true
+        },
+        new BuildingStyle
+        {
+          Color = Color.FromArgb(1, 0, 58),
+          LightColor = Color.FromArgb(74, 131, 171),
+          GrowWindows = true
+        }
+      };
       this.Size = new Size(1280, 720);
       this.MaximumBuildingSize = new Size(50, 210);
       this.MinimumBuildingSize = new Size(10, 20);
@@ -292,18 +293,11 @@ namespace Cyotek.SkylineGenerator
       this.OnPropertyChanged("Seed");
     }
 
-    [NotifyPropertyChangedInvocator]
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
       if (!_updatesLocked)
       {
-        PropertyChangedEventHandler handler;
-
-        handler = this.PropertyChanged;
-        if (handler != null)
-        {
-          handler(this, new PropertyChangedEventArgs(propertyName));
-        }
+        this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
       }
     }
 
