@@ -28,6 +28,8 @@ namespace Cyotek.Demo
     /// <param name="e">A <see cref="T:System.EventArgs"/> that contains the event data. </param>
     protected override void OnShown(EventArgs e)
     {
+      string[] args;
+
       base.OnShown(e);
 
       this.LoadPresets();
@@ -50,11 +52,14 @@ namespace Cyotek.Demo
     protected override void OnFormClosing(FormClosingEventArgs e)
     {
       base.OnFormClosing(e);
+      args = Environment.GetCommandLineArgs();
 
       if (!e.Cancel)
+      if (args.Length == 2)
       {
         _simpleSkylineGenerator.Generated -= this.SimpleSkylineGeneratorGeneratedHandler;
         _simpleSkylineGenerator.SettingsChanged -= this.SimpleSkylineGeneratorSettingsChangedHandler;
+        presetToolStripComboBox.Text = args[1];
       }
     }
 
