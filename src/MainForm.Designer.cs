@@ -43,6 +43,8 @@ namespace Cyotek.Demo
       this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.generateSkylineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+      this.createSequenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.actualSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.sizeToFitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,6 +66,7 @@ namespace Cyotek.Demo
       this.statusStrip = new System.Windows.Forms.StatusStrip();
       this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
       this.seedToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+      this.cyotekLinkToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
       this.splitContainer.Panel1.SuspendLayout();
       this.splitContainer.Panel2.SuspendLayout();
@@ -87,8 +90,8 @@ namespace Cyotek.Demo
       // splitContainer.Panel2
       // 
       this.splitContainer.Panel2.Controls.Add(this.propertyGrid);
-      this.splitContainer.Size = new System.Drawing.Size(803, 325);
-      this.splitContainer.SplitterDistance = 503;
+      this.splitContainer.Size = new System.Drawing.Size(784, 490);
+      this.splitContainer.SplitterDistance = 484;
       this.splitContainer.TabIndex = 0;
       // 
       // previewImageBox
@@ -96,7 +99,7 @@ namespace Cyotek.Demo
       this.previewImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
       this.previewImageBox.Location = new System.Drawing.Point(0, 0);
       this.previewImageBox.Name = "previewImageBox";
-      this.previewImageBox.Size = new System.Drawing.Size(503, 325);
+      this.previewImageBox.Size = new System.Drawing.Size(484, 490);
       this.previewImageBox.TabIndex = 0;
       // 
       // propertyGrid
@@ -104,7 +107,7 @@ namespace Cyotek.Demo
       this.propertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
       this.propertyGrid.Location = new System.Drawing.Point(0, 0);
       this.propertyGrid.Name = "propertyGrid";
-      this.propertyGrid.Size = new System.Drawing.Size(296, 325);
+      this.propertyGrid.Size = new System.Drawing.Size(296, 490);
       this.propertyGrid.TabIndex = 0;
       // 
       // menuStrip
@@ -117,7 +120,7 @@ namespace Cyotek.Demo
             this.helpToolStripMenuItem});
       this.menuStrip.Location = new System.Drawing.Point(0, 0);
       this.menuStrip.Name = "menuStrip";
-      this.menuStrip.Size = new System.Drawing.Size(803, 24);
+      this.menuStrip.Size = new System.Drawing.Size(784, 24);
       this.menuStrip.TabIndex = 1;
       // 
       // fileToolStripMenuItem
@@ -137,14 +140,14 @@ namespace Cyotek.Demo
       this.savePresetToolStripMenuItem.Image = global::Cyotek.SkylineGenerator.Properties.Resources.Save;
       this.savePresetToolStripMenuItem.Name = "savePresetToolStripMenuItem";
       this.savePresetToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-      this.savePresetToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+      this.savePresetToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
       this.savePresetToolStripMenuItem.Text = "&Save Preset...";
       this.savePresetToolStripMenuItem.Click += new System.EventHandler(this.SavePresetToolStripMenuItem_Click);
       // 
       // toolStripMenuItem1
       // 
       this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-      this.toolStripMenuItem1.Size = new System.Drawing.Size(189, 6);
+      this.toolStripMenuItem1.Size = new System.Drawing.Size(190, 6);
       // 
       // exportImageToolStripMenuItem
       // 
@@ -152,19 +155,19 @@ namespace Cyotek.Demo
       this.exportImageToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
       this.exportImageToolStripMenuItem.Name = "exportImageToolStripMenuItem";
       this.exportImageToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-      this.exportImageToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+      this.exportImageToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
       this.exportImageToolStripMenuItem.Text = "&Export Image...";
       this.exportImageToolStripMenuItem.Click += new System.EventHandler(this.ExportImageToolStripMenuItem_Click);
       // 
       // toolStripSeparator2
       // 
       this.toolStripSeparator2.Name = "toolStripSeparator2";
-      this.toolStripSeparator2.Size = new System.Drawing.Size(189, 6);
+      this.toolStripSeparator2.Size = new System.Drawing.Size(190, 6);
       // 
       // exitToolStripMenuItem
       // 
       this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-      this.exitToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+      this.exitToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
       this.exitToolStripMenuItem.Text = "E&xit";
       this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
       // 
@@ -189,9 +192,11 @@ namespace Cyotek.Demo
       // toolsToolStripMenuItem
       // 
       this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.generateSkylineToolStripMenuItem});
+            this.generateSkylineToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.createSequenceToolStripMenuItem});
       this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-      this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+      this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
       this.toolsToolStripMenuItem.Text = "&Tools";
       // 
       // generateSkylineToolStripMenuItem
@@ -199,9 +204,22 @@ namespace Cyotek.Demo
       this.generateSkylineToolStripMenuItem.Image = global::Cyotek.SkylineGenerator.Properties.Resources.Generate;
       this.generateSkylineToolStripMenuItem.Name = "generateSkylineToolStripMenuItem";
       this.generateSkylineToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-      this.generateSkylineToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.generateSkylineToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
       this.generateSkylineToolStripMenuItem.Text = "&Generate Skyline";
       this.generateSkylineToolStripMenuItem.Click += new System.EventHandler(this.GenerateToolStripButton_Click);
+      // 
+      // toolStripMenuItem2
+      // 
+      this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+      this.toolStripMenuItem2.Size = new System.Drawing.Size(214, 6);
+      // 
+      // createSequenceToolStripMenuItem
+      // 
+      this.createSequenceToolStripMenuItem.Name = "createSequenceToolStripMenuItem";
+      this.createSequenceToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F5)));
+      this.createSequenceToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+      this.createSequenceToolStripMenuItem.Text = "Create &Sequence...";
+      this.createSequenceToolStripMenuItem.Click += new System.EventHandler(this.CreateSequenceToolStripMenuItem_Click);
       // 
       // viewToolStripMenuItem
       // 
@@ -262,7 +280,7 @@ namespace Cyotek.Demo
             this.presetToolStripComboBox});
       this.toolStrip.Location = new System.Drawing.Point(0, 24);
       this.toolStrip.Name = "toolStrip";
-      this.toolStrip.Size = new System.Drawing.Size(803, 25);
+      this.toolStrip.Size = new System.Drawing.Size(784, 25);
       this.toolStrip.TabIndex = 2;
       // 
       // savePresetToolStripButton
@@ -362,16 +380,17 @@ namespace Cyotek.Demo
       // 
       this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
-            this.seedToolStripStatusLabel});
-      this.statusStrip.Location = new System.Drawing.Point(0, 374);
+            this.seedToolStripStatusLabel,
+            this.cyotekLinkToolStripStatusLabel});
+      this.statusStrip.Location = new System.Drawing.Point(0, 539);
       this.statusStrip.Name = "statusStrip";
-      this.statusStrip.Size = new System.Drawing.Size(803, 22);
+      this.statusStrip.Size = new System.Drawing.Size(784, 22);
       this.statusStrip.TabIndex = 3;
       // 
       // toolStripStatusLabel1
       // 
       this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-      this.toolStripStatusLabel1.Size = new System.Drawing.Size(788, 17);
+      this.toolStripStatusLabel1.Size = new System.Drawing.Size(670, 17);
       this.toolStripStatusLabel1.Spring = true;
       this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
       // 
@@ -380,19 +399,32 @@ namespace Cyotek.Demo
       this.seedToolStripStatusLabel.Name = "seedToolStripStatusLabel";
       this.seedToolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
       // 
+      // cyotekLinkToolStripStatusLabel
+      // 
+      this.cyotekLinkToolStripStatusLabel.IsLink = true;
+      this.cyotekLinkToolStripStatusLabel.Name = "cyotekLinkToolStripStatusLabel";
+      this.cyotekLinkToolStripStatusLabel.Size = new System.Drawing.Size(99, 17);
+      this.cyotekLinkToolStripStatusLabel.Text = "www.cyotek.com";
+      this.cyotekLinkToolStripStatusLabel.Click += new System.EventHandler(this.CyotekLinkToolStripStatusLabel_Click);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(803, 396);
+      this.ClientSize = new System.Drawing.Size(784, 561);
       this.Controls.Add(this.splitContainer);
       this.Controls.Add(this.statusStrip);
       this.Controls.Add(this.toolStrip);
       this.Controls.Add(this.menuStrip);
+      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.MainMenuStrip = this.menuStrip;
+      this.MaximizeBox = true;
+      this.MinimizeBox = true;
       this.Name = "MainForm";
-      this.Text = "Skyline Generator";
+      this.ShowIcon = true;
+      this.ShowInTaskbar = true;
+      this.Text = "Cyotek Skyline Generator";
       this.splitContainer.Panel1.ResumeLayout(false);
       this.splitContainer.Panel2.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
@@ -445,6 +477,9 @@ namespace Cyotek.Demo
     private System.Windows.Forms.ToolStripButton savePresetToolStripButton;
     private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     private System.Windows.Forms.ToolStripStatusLabel seedToolStripStatusLabel;
+    private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+    private System.Windows.Forms.ToolStripMenuItem createSequenceToolStripMenuItem;
+    private System.Windows.Forms.ToolStripStatusLabel cyotekLinkToolStripStatusLabel;
   }
 }
 
